@@ -12,7 +12,7 @@ with open("twitter_credentials.json", "r") as file:
 python_tweets = Twython(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
 
 # Create our query
-query = {'q': 'vacuna',
+query = {'q': 'pfizer',
         'result_type': 'mixed',
         'count': 100,
         'lang': 'es',
@@ -32,7 +32,7 @@ for x in statuses:
 #myheaders = statuses[index].keys()
 myheaders = ['extended_entities', 'retweeted_status', 'created_at', 'id', 'id_str', 'text', 'truncated', 'entities', 'metadata', 'source', 'in_reply_to_status_id', 'in_reply_to_status_id_str', 'in_reply_to_user_id', 'in_reply_to_user_id_str', 'in_reply_to_screen_name', 'user', 'geo', 'coordinates', 'place', 'contributors', 'is_quote_status', 'quoted_status_id', 'quoted_status_id_str', 'quoted_status', 'retweet_count', 'favorite_count', 'favorited', 'retweeted', 'possibly_sensitive', 'lang']
 
-with open('tweets_result1.csv', 'w', newline='') as myfile:
+with open('tweets_result2.csv', 'w', newline='') as myfile:
     writer = csv.DictWriter(myfile, fieldnames=myheaders)
     writer.writeheader()
     writer.writerows(statuses)  
