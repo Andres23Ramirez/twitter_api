@@ -1,0 +1,57 @@
+{"id": "36100710", 
+"id_str": "36100710", 
+"name": "Gobierno CDMX", 
+"screen_name": "GobCDMX", 
+"location": "Ciudad de México", 
+"description": "Gobierno de la Ciudad de México", 
+"url": "https://t.co/bDIqajFDEo", 
+"entities": {
+    "url": {
+        "urls": [
+            {
+                "url": "https://t.co/bDIqajFDEo", 
+                "expanded_url": "http://t.me/GobCDMX", 
+                "display_url": "t.me/GobCDMX", 
+                "indices": [0, 23]
+                }
+            ]
+        }, 
+"description": {
+    "urls": []
+        }
+    }, 
+"protected": False, 
+"followers_count": 3038369, 
+"friends_count": 143, 
+"listed_count": 4416, 
+"created_at": "Tue Apr 28 15:55:16 +0000 2009", 
+"favourites_count": 245, 
+"utc_offset": "None", 
+"time_zone": "None", 
+"geo_enabled": True, 
+"verified": True, 
+"statuses_count": 142322, 
+"lang": "None", 
+"contributors_enabled": False, 
+"is_translator": False, 
+"is_translation_enabled": False, 
+"profile_background_color": "0A0A0A", 
+"profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png", 
+"profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png", 
+"profile_background_tile": False, 
+"profile_image_url": "http://pbs.twimg.com/profile_images/1406837820778496001/PCTFgNMy_normal.jpg", 
+"profile_image_url_https": "https://pbs.twimg.com/profile_images/1406837820778496001/PCTFgNMy_normal.jpg", 
+"profile_banner_url": "https://pbs.twimg.com/profile_banners/36100710/1626311422", 
+"profile_link_color": "26AD4A", 
+"profile_sidebar_border_color": "FFFFFF", 
+"profile_sidebar_fill_color": "EBE6EB", 
+"profile_text_color": "616161", 
+"profile_use_background_image": True, 
+"has_extended_profile": False, 
+"default_profile": False, 
+"default_profile_image": False, 
+"following": "None", 
+"follow_request_sent": "None", 
+"notifications": "None", 
+"translator_type": "None", 
+"withheld_in_countries": []}
