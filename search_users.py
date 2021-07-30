@@ -13,9 +13,9 @@ with open("twitter_credentials.json", "r") as file:
 # Instantiate an object
 python_tweets = Twython(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
 
-if os.path.isfile('data/tweets.csv'):
+if os.path.isfile('data/tweets_mejorado.csv'):
     exits = True
-    df = pd.read_csv('data/tweets.csv')
+    df = pd.read_csv('data/tweets_mejorado.csv')
     users = df[['user']]
 
     myheaders = ['id_user_tweet', 'id', 'id_str', 'name', 'screen_name', 'location', 'derived', 'url', 'description', 'protected', 'verified', 'followers_count', 'friends_count', 'listed_count', 'favourites_count', 'statuses_count', 'created_at', 'profile_banner_url', 'profile_image_url_https', 'default_profile', 'default_profile_image', 'withheld_in_countries', 'withheld_scope', 'geo_enabled', 'profile_sidebar_fill_color', 'profile_sidebar_border_color', 'following', 'is_translator', 'blocking', 'muting', 'lang', 'time_zone', 'profile_use_background_image', 'profile_background_image_url', 'follow_request_sent', 'profile_background_tile', 'profile_background_image_url_https', 'notifications', 'profile_text_color', 'profile_link_color', 'entities', 'is_translation_enabled', 'utc_offset', 'blocked_by', 'has_extended_profile', 'status', 'contributors_enabled', 'profile_image_url', 'translator_type', 'profile_background_color']
