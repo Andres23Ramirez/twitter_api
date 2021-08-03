@@ -1,2 +1,4 @@
 generate_credentiales.py
 twitter_credentials.json
+/data/followers.csv
+/data/friends.csv
