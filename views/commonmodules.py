@@ -9,7 +9,6 @@ from app import app
 
 def get_header():
     header = html.H1('DS4A - TEAM #54', className='text-center')
-
     return header
 
 def get_menu():
