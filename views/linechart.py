@@ -23,4 +23,5 @@ layout = html.Div([
             }
         }
     ),
+    commonmodules.get_footer(),   
 ])

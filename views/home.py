@@ -93,6 +93,6 @@ layout = html.Div([
             ]])
         ],
     ),
-    html.P("Which will allow us to predict how the immunity process will be and at what speed the contagion curve can be reduced in Colombia by knowing what the perception of people regarding vaccination is and if they are willing to do so, these results can be of great useful for the government to carry out programs that encourage vaccination and show evidence so that people can make the best decision whether to get vaccinated or not.")
-
+    html.P("Which will allow us to predict how the immunity process will be and at what speed the contagion curve can be reduced in Colombia by knowing what the perception of people regarding vaccination is and if they are willing to do so, these results can be of great useful for the government to carry out programs that encourage vaccination and show evidence so that people can make the best decision whether to get vaccinated or not."),
+    commonmodules.get_footer(),
 ])
