@@ -14,9 +14,8 @@ def get_header():
 def get_menu():
     navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Home", href="/")),
-        dbc.NavItem(dbc.NavLink("Line Chart", href="/linechart")),
-        dbc.NavItem(dbc.NavLink("Bar Chart", href="/barchart")),
+        dbc.NavItem(dbc.NavLink("EDA", href="/EDA")),
+        dbc.NavItem(dbc.NavLink("Analizer", href="/search")),
         dbc.NavItem(dbc.NavLink("Scatterplot", href="/scatterplot"))
     ],
     brand="Team #54",

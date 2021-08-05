@@ -4,7 +4,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from views import linechart, barchart, home , scatterplot
+from views import EDA, search, home , scatterplot
 
 app.layout = dbc.Container([
     dcc.Location(id='url', refresh=False),
@@ -13,13 +13,14 @@ app.layout = dbc.Container([
 
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
+
 def display_page(pathname):
     if pathname == '/':
          return home.layout
-    elif pathname == '/linechart':
-         return linechart.layout
-    elif pathname == '/barchart':
-         return barchart.layout
+    elif pathname == '/EDA':
+         return EDA.layout
+    elif pathname == '/search':
+         return search.layout
     elif pathname == '/scatterplot':
          return scatterplot.layout
     else:

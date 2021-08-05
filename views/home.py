@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-from views import barchart, barchart, commonmodules
+from views import commonmodules
 
 from app import app
 team_mates = ['Valentina Parra', 'Rodian Andrés Oliveros', 'Edwin Romero', 'David Mauricio Arquez', 'Felipe Bonnet', 'Oscar Andrés Zapata', 'Rodrigo Andrés Ramírez Aguirre' ]
