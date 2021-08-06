@@ -8,3 +8,4 @@ plotly
 sklearn
 google_trans_new
 pyjokes
+twython

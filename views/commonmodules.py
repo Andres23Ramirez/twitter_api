@@ -29,7 +29,7 @@ def get_footer():
     footer = html.Footer(
         html.Div("© 2021 Copyright: Team #54",
             className="text-center p-4"),
-        className='text-center text-lg-start bg-light text-muted')
+        className='text-center text-lg-start text-muted')
         
     
     return footer
