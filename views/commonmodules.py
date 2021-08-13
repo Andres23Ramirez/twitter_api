@@ -8,7 +8,7 @@ from views import commonmodules
 from app import app
 
 def get_header():
-    header = html.H1('DS4A - TEAM #54', className='text-center')
+    header = html.H1('DS4A - Twittycs.ml', className='text-center')
     return header
 
 def get_menu():
@@ -18,7 +18,7 @@ def get_menu():
         dbc.NavItem(dbc.NavLink("Analizer", href="/search")),
         dbc.NavItem(dbc.NavLink("Scatterplot", href="/scatterplot"))
     ],
-    brand="Team #54",
+    brand="Twittycs.ml",
     brand_href="/",
     color="primary",
     dark=True,
@@ -27,9 +27,9 @@ def get_menu():
 
 def get_footer():
     footer = html.Footer(
-        html.Div("© 2021 Copyright: Team #54",
+        html.Div("© 2021 Copyright: Twittycs.ml",
             className="text-center p-4"),
-        className='text-center text-lg-start text-muted')
+        className='text-center text-lg bg-secondary text-muted pb-0 mb-0')
         
     
     return footer

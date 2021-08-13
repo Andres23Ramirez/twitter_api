@@ -3,5 +3,4 @@ twitter_credentials.json
 data/followers.csv
 data/friends.csv
 __pycache__
-
 views/__pycache__/*
