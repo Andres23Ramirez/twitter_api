@@ -2,17 +2,47 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+from dash_html_components.Header import Header
 
 from views import commonmodules
 
 from app import app
 
+""" header = html.H1('DS4A - Twittycs.ml', className='text-center')
+    return header """
+
 def get_header():
-    header = html.H1('DS4A - Twittycs.ml', className='text-center')
+    header = html.Nav(
+            html.Div(children=[
+                html.A(html.Img(src="./assets/img/logo.png", sizes="30px"), href="/", className="navbar-brand"),
+                html.Button( children=[
+                    html.Span( className="navbar-toggler-icon")
+                ],
+                 
+                 type="button", className="navbar-toggler"
+                                
+                ),
+                html.Div(children=[
+                    html.Ul(
+                        children=[
+                            html.Li(
+                                html.A("EDA", href="/EDA", className="nav-link")
+                                , className="nav-item"),
+                            html.Li( 
+                                html.A( "Analizer", href="/search", className="nav-link")
+                                , className="nav-item" ),
+                            html.Li( 
+                                html.A("Scatterplot", href="/scatterplot", className="nav-link")
+                                , className="nav-item")
+                    ], className="ml-auto navbar-nav")
+                ], className="collapse navbar-collapse" )
+            ], className="container"),
+            className="navbar navbar-expand-md navbar-light navbar-dark bg-primary")
     return header
 
 def get_menu():
-    navbar = dbc.NavbarSimple(
+    navbar = ""
+    """ dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("EDA", href="/EDA")),
         dbc.NavItem(dbc.NavLink("Analizer", href="/search")),
@@ -22,7 +52,7 @@ def get_menu():
     brand_href="/",
     color="primary",
     dark=True,
-    )
+    ) """
     return navbar
 
 def get_footer():
