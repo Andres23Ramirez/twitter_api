@@ -11,7 +11,7 @@ df = df.filter(["id","created_at", "coordinates", "place", "quote_count", "reply
 	            "favorited", "retweeted",	"possibly_sensitive",	"filter_level",	"current_user_retweet", "display_text_range"])
 
 from app import app
-df2 = df[:5]
+df2 = df[:2]
 print(len(df2))
 
 layout = html.Div([
@@ -21,7 +21,7 @@ layout = html.Div([
         dash_pivottable.PivotTable(
             data= df.values.tolist(),
             cols=["reply_count"],
-            rows=df2["id"],
+            rows=["id"],
             vals=["Count"]
         ), 
         className='container'

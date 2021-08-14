@@ -5,3 +5,5 @@ data/friends.csv
 __pycache__
 views/__pycache__/*
 *__pycache__/*
+data/.~lock.tweets_mejorado 2.csv#
+views/__pycache__/scatterplot.cpython-38.pyc
