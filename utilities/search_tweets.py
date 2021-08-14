@@ -8,6 +8,8 @@ import time
 
 def get_tweets(words, city, result_type, times):
     print('Funcion')
+    print(result_type)
+    print(type(result_type))
     
     # Load credentials from json file
     with open("twitter_credentials.json", "r") as file:
@@ -16,7 +18,7 @@ def get_tweets(words, city, result_type, times):
     # Instantiate an object
     python_tweets = Twython(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
     query_word = " OR ".join(words)
-    query_word = city + query_word
+    query_word = city + " " + query_word
     min = 99999999999999999999
     #min = 0
 
@@ -28,7 +30,7 @@ def get_tweets(words, city, result_type, times):
         f.truncate(0)
         exist = False
     
-    print('borrado')
+    
 
     query = {'q': query_word,
         'result_type': result_type, 

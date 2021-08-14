@@ -3,6 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
+
 df = pd.read_csv('data/tweets.csv')
 
 from views import commonmodules
