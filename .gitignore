@@ -4,3 +4,4 @@ data/followers.csv
 data/friends.csv
 __pycache__
 views/__pycache__/*
+*__pycache__/*
