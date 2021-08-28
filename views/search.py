@@ -5,8 +5,34 @@ from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 from views import commonmodules
 import pandas as pd
+from joblib import dump, load
+import pickle 
 from app import app
-from utilities.search_tweets import get_tweets 
+from utilities.search_tweets import get_tweets
+from models.analisis_de_sentimiento import get_result
+from utilities.tokenize import tokenize 
+import nltk
+import gzip
+from nltk.corpus import stopwords
+from nltk import word_tokenize
+from nltk.data import load
+from nltk.stem import SnowballStemmer
+from string import punctuation
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn import preprocessing
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+
+class MyCustomUnpickler(pickle.Unpickler):
+    print("Entrando a la funciòn")
+    def find_class(self, module, name):
+        print('name: ')
+        print(name)
+        if module == "__main__":
+            print(self)
+            module = "tokenize"
+            print(super().find_class(module, name))
+        return super().find_class(module, name)
 
 layout = html.Div([
     commonmodules.get_header(),
@@ -76,15 +102,47 @@ def update_output(n_clicks, input1, input2, input3, input4):
     if input2 is not None:
         
         words = input2.split(",")
-        df = get_tweets(words, input1, input3, input4)
+        get_tweets(words, input1, input3, input4)
+        df = get_result(pd.read_csv('tweets_analizer.csv',header=0))
+        print("Dataframe: ")
+        print(df)
+        print("-----------------------------------------------------------------------")
+        #joblib.load("models/model.pkl")
+
         return_divs = []
-        print("Size: ")
-        print(len(df))
         size = len(df)
-        print(size)
         return_divs.append(html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(str(size) + '0 Tweets', className='card-title'), html.P(' Tweets were found', className='card-text')]), ]))
         
+        """ tweets_text = []
         for index, row in df.iterrows():
-            return_divs.append( ( html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(row['in_reply_to_screen_name'], className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+            try:
+                tweets_text = tweets_text.append(row['full_text'])
+            except: 
+                pass """
 
+        #model = load("models/model.pkl")
+        """ with open('models/model.pkl', 'rb') as f:
+            print("load")
+            model = pickle.load(f) """
+        
+        """ with open('models/model.pkl', 'rb') as f:
+            unpickler = MyCustomUnpickler(f)
+            model = unpickler.load()
+
+        print("Model")
+        print(model) """
+        #results = model.predict(array_de_textos)
+        #0 = Negativo y 1= Positivo
+        
+        for index, row in df.iterrows():
+            result_word = ''
+            if row['result'] > 0:
+                result_word = "Positivo"
+                return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+            elif row['result'] < 0:
+                result_word = "Negativo"
+                return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+            else:
+                result_word = "Neutro"
+                return_divs.append( ( html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
     return return_divs

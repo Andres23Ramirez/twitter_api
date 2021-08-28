@@ -7,9 +7,6 @@ import os.path
 import time
 
 def get_tweets(words, city, result_type, times):
-    print('Funcion')
-    print(result_type)
-    print(type(result_type))
     
     # Load credentials from json file
     with open("twitter_credentials.json", "r") as file:
@@ -40,9 +37,9 @@ def get_tweets(words, city, result_type, times):
         }
 
     for i in range(0, times, 1):
-        print(query)
+        
         statuses = python_tweets.search(**query)['statuses']
-        print(statuses)
+        
         
         with open('tweets_analizer.csv', 'a', newline='') as myfile:    
             writer = csv.DictWriter(myfile, fieldnames=myheaders)
@@ -51,12 +48,12 @@ def get_tweets(words, city, result_type, times):
                 exist = True
             writer.writerows(statuses) 
             myfile.close()
-            print('escribiendo')
+            
 
         for status in statuses:     
             if min + 1 > status['id']:
                 min = status['id']
-                print(min)
+                
         
         query = {'q': query_word,
             'result_type': result_type,
@@ -67,6 +64,5 @@ def get_tweets(words, city, result_type, times):
             }
     
     time.sleep(10)
-    print('esperar')
 
     return pd.read_csv('tweets_analizer.csv')

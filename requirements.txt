@@ -10,3 +10,12 @@ google_trans_new
 pyjokes
 twython
 dash-pivottable
+nltk
+numpy
+pandas
+seaborn
+matplotlib
+stop_words
+textblob
+wordcloud
+translate
