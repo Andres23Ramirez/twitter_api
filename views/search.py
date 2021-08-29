@@ -74,7 +74,7 @@ layout = html.Div([
             ),
             dbc.FormGroup(
             [
-                dbc.Label("The number of times tweets are searched (each time takes 10 seconds and fetch 100 results.)", className="mr-2"),
+                dbc.Label("The number of times tweets are searched (each time takes 10 seconds and fetch 1000 results.)", className="mr-2"),
                 dcc.Dropdown(
                     id='input-4-state',
                     options=[{'label': x, 'value': x} for x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],

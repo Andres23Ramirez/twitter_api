@@ -51,7 +51,7 @@ def x_range(x):
   print(x)
   if x>0.5 :
     return 1
-  elif x>-0.5:
+  elif x<-0.5:
     return -1
   else:
     return 0
