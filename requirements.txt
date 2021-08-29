@@ -19,3 +19,4 @@ stop_words
 textblob
 wordcloud
 translate
+deep_translator

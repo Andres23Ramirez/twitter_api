@@ -16,9 +16,8 @@ warnings.filterwarnings("ignore",category=DeprecationWarning)
 from textblob import TextBlob
 import time
 import string
-#from translate import Translator
-#from googletrans import Translator
-from flask_googletrans import translator
+from deep_translator import GoogleTranslator
+
 
 #from google.colab import files
 #files.upload()
@@ -26,40 +25,36 @@ from flask_googletrans import translator
 ##datos = pd.read_csv(excel_file,header=0)
 def get_polarity(text):
   print('get polarity')
-  analysis=TextBlob(text)
-  print('get 1')
+  #analysis=TextBlob(text)
   result = ''
 
   if text !='':
-    print('get 2')
-    print(type(analysis))
     #print(analysis.detect_language()=='es')
-    if analysis.detect_language()=='es':
-    #if True:
-      print('get 3')
+    #if analysis.detect_language()=='es':
+    if True:
       #print(analysis.translate(from_lang='es',to='en'))
       #result = analysis.translate(from_lang='es',to='en')
       #print(result.sentiment.polarity)
-      result = analysis.translate(from_lang='es',to='en').sentiment.polarity
+      #result = analysis.translate(from_lang='es',to='en').sentiment.polarity
       #result = analysis.sentiment.polarity
       #time.sleep(5)
-      #translator= Translator(to_lang="en")
+      translator = GoogleTranslator(source='auto', target='en').translate(text)
       #translation = translator.translate(text)
       #translation = translator.translate(text, src='es', dest=['es'])
-      """ analysis=TextBlob(translation)
+      print('Text: ' + text)
+      print('translator: ' + translator)
+      analysis=TextBlob(translator)
       result = analysis.sentiment.polarity
-      print('get 4' + result) """
-
   return result
 
 def x_range(x):
   print(x)
-  if x>0 :
+  if x>0.5 :
     return 1
-  elif x==0:
-    return 0
-  else:
+  elif x>-0.5:
     return -1
+  else:
+    return 0
 
 def get_result(test):
   #p_train = 0.99
