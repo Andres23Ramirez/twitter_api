@@ -49,9 +49,9 @@ def get_polarity(text):
 
 def x_range(x):
   print(x)
-  if x>0.5 :
+  if x>0.2 :
     return 1
-  elif x<-0.5:
+  elif x<-0.2:
     return -1
   else:
     return 0
