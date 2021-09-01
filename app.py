@@ -10,7 +10,7 @@ import os
 # Create the app
 external_stylesheets = external_stylesheets=[dbc.themes.COSMO]
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),

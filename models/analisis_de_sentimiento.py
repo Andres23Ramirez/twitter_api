@@ -24,7 +24,6 @@ from deep_translator import GoogleTranslator
 ##excel_file='tweets.csv'
 ##datos = pd.read_csv(excel_file,header=0)
 def get_polarity(text):
-  print('get polarity')
   #analysis=TextBlob(text)
   result = ''
 
@@ -41,14 +40,11 @@ def get_polarity(text):
       translator = GoogleTranslator(source='auto', target='en').translate(text)
       #translation = translator.translate(text)
       #translation = translator.translate(text, src='es', dest=['es'])
-      print('Text: ' + text)
-      print('translator: ' + translator)
       analysis=TextBlob(translator)
       result = analysis.sentiment.polarity
   return result
 
 def x_range(x):
-  print(x)
   if x>0.2 :
     return 1
   elif x<0:
@@ -69,7 +65,6 @@ def get_result(test):
   test['clean_text'] = test['clean_text'].str.replace('[^\w\s]',' ')
   ##Remove spaces in between words
   test['clean_text'] = test['clean_text'].str.replace(' +', ' ')
-  print('Dentro modelo')
   ##Remove Numbers
   #test['clean_text'] = test['clean_text'].str.replace('\d+', '')
   ##Remove trailing spaces
@@ -88,14 +83,11 @@ def get_result(test):
   #stop = stopwords.words('english')
   palabras_irrelevantes.extend(["amp","https","co","Biden","rt"])
   test['clean_text'] = test['clean_text'].apply(lambda x: " ".join(x for x in x.split() if x not in palabras_irrelevantes ))
-  print('2')
   ##Remove Text Column
   #del df_tweets['text']
 
-  print('4')
   test['polarity']=test['clean_text'].apply(get_polarity)
   test['polarity'].head()
-  print('Despues de polarity')
 
   test.head()
 

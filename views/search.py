@@ -24,17 +24,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 
 
-""" class MyCustomUnpickler(pickle.Unpickler):
-    print("Entrando a la funciòn")
-    def find_class(self, module, name):
-        print('name: ')
-        print(name)
-        if module == "__main__":
-            print(self)
-            module = "tokenize"
-            print(super().find_class(module, name))
-        return super().find_class(module, name) """
-
 layout = html.Div([
     commonmodules.get_header(),
     commonmodules.get_menu(),
@@ -86,11 +75,14 @@ layout = html.Div([
                     ),
                 ],
             ),
-            dbc.Button(id='submit-button-state', n_clicks=0, children='Submit'),
+            dbc.Button(id='submit-button-state', n_clicks=0, children='Submit')
             ]
         ),
         html.Br(),
-        html.Div( id='output-state')
+        dcc.Link("Show Graphs",href="/scatterplot"),
+        html.Br(),
+        html.Div( id='output-state'),
+        html.Br(),
         ]),
     commonmodules.get_footer()
 ])
@@ -108,34 +100,31 @@ def update_output(n_clicks, input1, input2, input3, input4):
         words = input2.split(",")
         get_tweets(words, input1, input3, input4)
         df = get_result(pd.read_csv('tweets_analizer.csv',header=0))
-        print("Dataframe: ")
-        print(df)
-        print("-----------------------------------------------------------------------")
-        #model = load("model_v2.pkl")
+        df.to_csv('results_tweets_analizer.csv', index=False)
 
         return_divs = []
         size = len(df)
         return_divs.append(html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(str(size) + '0 Tweets', className='card-title'), html.P(' Tweets were found', className='card-text')]), ]))
         
-        tweets_text = []
+        """ tweets_text = []
         for index, row in df.iterrows():
             try:
                 tweets_text = tweets_text.append(row['full_text'])
             except: 
-                pass
+                pass """
  
         #model = load("models/model.pkl")
-        with gzip.open('model_v3.pklz', 'rb') as f:
+        """ with gzip.open('model_v3.pklz', 'rb') as f:
             print("load")
-            model = pickle.load(f)
+            model = pickle.load(f) """
         
         """ with open('models/model.pkl', 'rb') as f:
             unpickler = MyCustomUnpickler(f)
             model = unpickler.load() """
 
-        print("Model")
+        """ print("Model")
         print(model)
-        results = model.predict(tweets_text)
+        results = model.predict(tweets_text) """
         #0 = Negativo y 1= Positivo
         
         for index, row in df.iterrows():

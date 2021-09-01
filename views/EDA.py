@@ -58,6 +58,8 @@ df['value'] = 'Neutral'
 df.loc[df['polarity'] > pos, 'value'] = 'Positive'
 df.loc[df['polarity'] < neg, 'value'] = 'Negative'
 
+
+
 df.groupby('value')['polarity'].count().index
 fig3 = px.pie(df.groupby('value')['polarity'].count(), 
             values = df.groupby('value')['polarity'].count(),
@@ -206,7 +208,7 @@ layout = html.Div([
         html.Div(
             html.Div([
                 html.Div([
-                    html.H3("Negative Tweets"),
+                    html.H3("Positive Tweets"),
                     html.Img(id="fig_pos_wordcloud",
                     className = "img-fluid", alt=""
                     )

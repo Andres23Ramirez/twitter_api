@@ -32,7 +32,7 @@ def get_header():
                                 html.A( "Analizer", href="/search", className="nav-link")
                                 , className="nav-item" ),
                             html.Li( 
-                                html.A("Scatterplot", href="/scatterplot", className="nav-link")
+                                html.A("Show Graphs", href="/scatterplot", className="nav-link")
                                 , className="nav-item")
                     ], className="ml-auto navbar-nav")
                 ], className="collapse navbar-collapse" )
