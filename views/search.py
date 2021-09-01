@@ -23,7 +23,8 @@ from sklearn import preprocessing
 from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 
-class MyCustomUnpickler(pickle.Unpickler):
+
+""" class MyCustomUnpickler(pickle.Unpickler):
     print("Entrando a la funciòn")
     def find_class(self, module, name):
         print('name: ')
@@ -32,63 +33,66 @@ class MyCustomUnpickler(pickle.Unpickler):
             print(self)
             module = "tokenize"
             print(super().find_class(module, name))
-        return super().find_class(module, name)
+        return super().find_class(module, name) """
 
 layout = html.Div([
     commonmodules.get_header(),
-    commonmodules.get_menu(),      
-    html.H2('Analizer'), 
-    html.P("Enter the City and a word's list separated by comma (Max: 5 words) what you want analize"),   
-    dbc.Form(
-        [
-            dbc.FormGroup(
+    commonmodules.get_menu(),
+    dbc.Container([ 
+        html.Br(),
+        html.Br(),     
+        html.H1('Analizer'), 
+        html.P("Enter the City and a word's list separated by comma (Max: 5 words) what you want analize"),   
+        dbc.Form(
             [
-                dbc.Label("City", className="mr-2"),
-                dbc.Input(id='input-1-state', type='text', placeholder="City"),
-            ],
-            className="mr-3",
-            ),
-            dbc.FormGroup(
-            [
-                dbc.Label("Word List", className="mr-2"),
-                dbc.Input(id="input-2-state", type='text', placeholder="Word List"),
-            ],
-            className="mr-3",
-            ),
-            dbc.FormGroup(
-            [
-                dbc.Label("Tweets Result Type", className="mr-2 "),
-                dbc.Col(
-                dbc.RadioItems(
-                    id="input-3-state",
-                    options=[
-                        {"label": "recent", "value": "recent"},
-                        {"label": "popular", "value": "popular"},
-                        {"label": "mixed", "value": "mixed" },
-                    ],
+                dbc.FormGroup(
+                [
+                    dbc.Label("City", className="mr-2"),
+                    dbc.Input(id='input-1-state', type='text', placeholder="City"),
+                ],
+                className="mr-3",
                 ),
-                width=10,
+                dbc.FormGroup(
+                [
+                    dbc.Label("Word List", className="mr-2"),
+                    dbc.Input(id="input-2-state", type='text', placeholder="Word List"),
+                ],
+                className="mr-3",
                 ),
-            ],
-            className="mr-3",
+                dbc.FormGroup(
+                [
+                    dbc.Label("Tweets Result Type", className="mr-2 "),
+                    dbc.Col(
+                    dbc.RadioItems(
+                        id="input-3-state",
+                        options=[
+                            {"label": "recent", "value": "recent"},
+                            {"label": "popular", "value": "popular"},
+                            {"label": "mixed", "value": "mixed" },
+                        ],
+                    ),
+                    width=10,
+                    ),
+                ],
+                className="mr-3",
+                ),
+                dbc.FormGroup(
+                [
+                    dbc.Label("The number of times tweets are searched (each time takes 10 seconds and fetch 100 results.)", className="mr-2"),
+                    dcc.Dropdown(
+                        id='input-4-state',
+                        options=[{'label': x, 'value': x} for x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
+                        value=1,
+                    ),
+                ],
             ),
-            dbc.FormGroup(
-            [
-                dbc.Label("The number of times tweets are searched (each time takes 10 seconds and fetch 100 results.)", className="mr-2"),
-                dcc.Dropdown(
-                    id='input-4-state',
-                    options=[{'label': x, 'value': x} for x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
-                    value=1,
-                ),
-            ],
+            dbc.Button(id='submit-button-state', n_clicks=0, children='Submit'),
+            ]
         ),
-        dbc.Button(id='submit-button-state', n_clicks=0, children='Submit'),
-        ]
-    ),
-    html.Br(),
-    html.Div( id='output-state'),
-    commonmodules.get_footer(),
-
+        html.Br(),
+        html.Div( id='output-state')
+        ]),
+    commonmodules.get_footer()
 ])
 
 @app.callback(Output('output-state', 'children'),
@@ -107,31 +111,31 @@ def update_output(n_clicks, input1, input2, input3, input4):
         print("Dataframe: ")
         print(df)
         print("-----------------------------------------------------------------------")
-        #joblib.load("models/model.pkl")
+        #model = load("model_v2.pkl")
 
         return_divs = []
         size = len(df)
         return_divs.append(html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(str(size) + '0 Tweets', className='card-title'), html.P(' Tweets were found', className='card-text')]), ]))
         
-        """ tweets_text = []
+        tweets_text = []
         for index, row in df.iterrows():
             try:
                 tweets_text = tweets_text.append(row['full_text'])
             except: 
-                pass """
-
+                pass
+ 
         #model = load("models/model.pkl")
-        """ with open('models/model.pkl', 'rb') as f:
+        with gzip.open('model_v3.pklz', 'rb') as f:
             print("load")
-            model = pickle.load(f) """
+            model = pickle.load(f)
         
         """ with open('models/model.pkl', 'rb') as f:
             unpickler = MyCustomUnpickler(f)
-            model = unpickler.load()
+            model = unpickler.load() """
 
         print("Model")
-        print(model) """
-        #results = model.predict(array_de_textos)
+        print(model)
+        results = model.predict(tweets_text)
         #0 = Negativo y 1= Positivo
         
         for index, row in df.iterrows():

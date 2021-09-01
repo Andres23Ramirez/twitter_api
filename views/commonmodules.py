@@ -59,8 +59,6 @@ def get_footer():
     footer = html.Footer(
         html.Div("© 2021 Copyright: Twittycs.ml",
             className="text-center p-4"),
-        className='text-center text-lg bg-secondary text-muted pb-0 mb-0')
-        
-    
+        className='text-center text-lg bg-secondary text-muted')   
     return footer
 

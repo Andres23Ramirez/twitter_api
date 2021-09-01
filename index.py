@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 from app import app
 from views import EDA, search, home , scatterplot
 
-app.layout = dbc.Container([
+app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
 ])
