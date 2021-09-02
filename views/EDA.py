@@ -234,6 +234,23 @@ fig11.update_layout(
     xaxis_title = "Tweet count",
     yaxis_title = "Words"
     )
+##Figura 12 la del tiempo 
+##--------------------------------------------
+df = pd.concat([df, pd.get_dummies(df.value)], axis = 1)
+bucket = 4
+ts = df[['created_at', 'Negative', 'Neutral', 'Positive']].resample(f'{bucket}H', on = 'created_at').sum()
+ts2 = pd.melt(ts.reset_index(), id_vars = ['created_at'], value_vars = ['Negative', 'Neutral', 'Positive'])
+ts2.created_at = ts2.created_at.dt.strftime("%Y%m%d%H%M").str[:-2]
+fig12 = px.bar(ts2, 
+             x = "value", 
+             y = "variable", 
+             color = "variable",
+             animation_frame = "created_at",
+             range_x=[0,max(ts2.value)],
+             labels = {'variable': 'Sentiment', 'value': 'Amount of tweets', 'created_at': 'time'},
+             color_discrete_map={'Neutral':'gray', 'Positive':'green', 'Negative':'red'}
+            )
+##Layout --------------------------------------------
 
 layout = html.Div([
     commonmodules.get_header(),
@@ -243,6 +260,10 @@ layout = html.Div([
         html.Br(),
         html.H1(
             "Now we focus on identifying the characterization of the tweets, so we can infer the drivers of a positive or negative tweet."
+        ),
+        html.Div(
+            dcc.Graph(figure=fig12),
+            className="border"
         ),
         html.Br(),
         html.Br(),

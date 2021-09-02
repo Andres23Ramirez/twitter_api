@@ -98,6 +98,12 @@ fig4.update_layout(
 
 #Figura 5
 large = 1200
+pos_wordcloud = neg_wordcloud = neu_wordcloud = WordCloud(width = large, height = large, 
+                    background_color ='white', 
+                    stopwords = palabras_irrelevantes,# max_words=200,
+                    relative_scaling = 0,
+                    min_font_size = 10).generate('empty')
+
 print(df.loc[df['value'] == 'Positive'])
 if not (df.loc[df['value'] == 'Positive']).empty:
     pos_textoWC = ' '.join(df.loc[df['value'] == 'Positive', 'clean_text'])
@@ -241,6 +247,7 @@ fig9.update_layout(yaxis={'categoryorder':'total ascending'})
 
 fig10 = px.bar(pd.DataFrame({'tweet' : ['empty'] , 'index' : [1] }), x='tweet', y='index')
 fig11 = px.bar(pd.DataFrame({'tweet' : ['empty'] , 'index' : [1] }), x='tweet', y='index')
+fig12 = px.bar(pd.DataFrame({'tweet' : ['empty'] , 'index' : [1] }), x='tweet', y='index')
 
 
 if not Positive.loc[:top, 'tweet'].empty and not Positive.loc[:top, 'index'].empty:
@@ -265,6 +272,23 @@ if not Positive.loc[:top, 'tweet'].empty and not Positive.loc[:top, 'index'].emp
         xaxis_title = "Tweet count",
         yaxis_title = "Words"
     )
+
+df = pd.concat([df, pd.get_dummies(df.value)], axis = 1)
+bucket = 4
+if 'Negative' in df and 'Neutral' in df and 'Positive' in df:
+    ts = df[['created_at', 'Negative', 'Neutral', 'Positive']].resample(f'{bucket}H', on = 'created_at').sum()
+    ts2 = pd.melt(ts.reset_index(), id_vars = ['created_at'], value_vars = ['Negative', 'Neutral', 'Positive'])
+    ts2.created_at = ts2.created_at.dt.strftime("%Y%m%d%H%M").str[:-2]
+    fig12 = px.bar(ts2, 
+                x = "value", 
+                y = "variable", 
+                color = "variable",
+                animation_frame = "created_at",
+                range_x=[0,max(ts2.value)],
+                labels = {'variable': 'Sentiment', 'value': 'Amount of tweets', 'created_at': 'time'},
+                color_discrete_map={'Neutral':'gray', 'Positive':'green', 'Negative':'red'}
+                )
+
 ###--------------------------------------------------------------
 
 layout = html.Div([
@@ -275,6 +299,13 @@ layout = html.Div([
         html.Br(),
         html.H1(
             "Now we focus on identifying the characterization of the tweets, so we can infer the drivers of a positive or negative tweet."
+        ),
+        html.Br(),
+        html.Br(),
+        html.H2("Time Graph"),
+        html.Div(
+            dcc.Graph(figure=fig12),
+            className="border"
         ),
         html.Br(),
         html.Br(),
