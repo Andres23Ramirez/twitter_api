@@ -23,6 +23,8 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly.graph_objects as go
+from nltk.tokenize.regexp import regexp_tokenize
+from plotly.subplots import make_subplots
 
 from app import app
 
@@ -96,7 +98,8 @@ fig4.update_layout(
 
 #Figura 5
 large = 1200
-if not (df['value'] == 'Positive').empty:
+print(df.loc[df['value'] == 'Positive'])
+if not (df.loc[df['value'] == 'Positive']).empty:
     pos_textoWC = ' '.join(df.loc[df['value'] == 'Positive', 'clean_text'])
     pos_wordcloud = WordCloud(width = large, height = large, 
                     background_color ='white', 
@@ -112,7 +115,7 @@ if not (df.loc[df['value'] == 'Negative']).empty:
                     relative_scaling = 0,
                     min_font_size = 10).generate(neg_textoWC) 
 
-if not (df['value'] == 'Neutral').empty:
+if not (df.loc[df['value'] == 'Neutral']).empty:
     neu_textoWC = ' '.join(df.loc[df['value'] == 'Neutral', 'clean_text'])
     neu_wordcloud = WordCloud(width = large, height =  large, 
                     background_color ='white', 
@@ -188,44 +191,90 @@ fig7.update_layout(
     legend_title = "Sentiment"
     )
 
+##---------------------------------------------------------------
+df.groupby('value')[['retweet_count', 'favorite_count']].mean()
+df['tweet'] = df['clean_text'].apply(lambda x:regexp_tokenize(x,pattern='\s+',gaps=True))
+df2 = df.explode('tweet')
+
+Positive = pd.DataFrame(df2.loc[df2['value'] == 'Positive', 'tweet'].value_counts())
+Neutral = pd.DataFrame(df2.loc[df2['value'] == 'Neutral', 'tweet'].value_counts())
+Negative = pd.DataFrame(df2.loc[df2['value'] == 'Negative', 'tweet'].value_counts())
+
+Positive.reset_index(inplace = True)
+Neutral.reset_index(inplace = True)
+Negative.reset_index(inplace = True)
+
+Positive = Positive[Positive['index'].str.len()>3]
+Neutral = Neutral[Neutral['index'].str.len()>3]
+Negative = Negative[Negative['index'].str.len()>3]
+
+Positive['Sentiment'] = 'Positive'
+Negative['Sentiment'] = 'Negative'
+
+top = 15
+
+funnel = pd.concat([Positive.iloc[:top], Negative.iloc[:top]])
+funnel.columns = ['Word', 'Amount of tweets', 'Sentiment']
+fig8 = px.funnel(funnel, x='Amount of tweets', y='Word', color='Sentiment',  color_discrete_sequence = ['green', 'red'])
+
+fig9 = make_subplots(rows=1, cols=2, column_widths=[0.7, 0.3])
+
+fig9.add_trace(go.Bar(x = Positive.loc[:top, 'tweet'],
+                     y = Positive.loc[:top, 'index'],
+                     orientation='h',
+                     # color = ['green'],
+                     name = 'Positive'),
+              row = 1,
+              col = 1
+      #      color_discrete_sequence = ['green']
+            )
+fig9.update_layout(yaxis={'categoryorder':'total ascending'})
+fig9.add_trace(go.Bar(x = Negative.loc[:top, 'tweet'],
+                     y = Negative.loc[:top, 'index'],
+                     orientation='h',
+                     name = 'Negative'),
+        #        color_discrete_sequence = ['red']
+               row = 1,
+               col = 2
+             )
+fig9.update_layout(yaxis={'categoryorder':'total ascending'})
+
+fig10 = px.bar(pd.DataFrame({'tweet' : ['empty'] , 'index' : [1] }), x='tweet', y='index')
+fig11 = px.bar(pd.DataFrame({'tweet' : ['empty'] , 'index' : [1] }), x='tweet', y='index')
+
+
+if not Positive.loc[:top, 'tweet'].empty and not Positive.loc[:top, 'index'].empty:
+    fig10 = px.bar(x = Positive.loc[:top, 'tweet'],
+                    y = Positive.loc[:top, 'index'],
+                # color_discrete_sequence = ['green'],
+                    orientation = 'h')
+    fig10.update_layout(yaxis={'categoryorder':'total ascending'})
+    fig10.update_layout(
+        title = f"Words associated to positive sentiement",
+        xaxis_title = "Tweet count",
+        yaxis_title = "Words"
+        )
+
+    fig11 = px.bar(x = Negative.loc[:top, 'tweet'],
+                y = Negative.loc[:top, 'index'],
+                # color_discrete_sequence = ['green'],
+                orientation = 'h')
+    fig11.update_layout(yaxis={'categoryorder':'total ascending'})
+    fig11.update_layout(
+        title = f"Words associated to positive sentiement",
+        xaxis_title = "Tweet count",
+        yaxis_title = "Words"
+    )
+###--------------------------------------------------------------
+
 layout = html.Div([
     commonmodules.get_header(),
     commonmodules.get_menu(),
     dbc.Container([
         html.Br(),
         html.Br(),
-        html.Br(),
-        html.Br(),
         html.H1(
             "Now we focus on identifying the characterization of the tweets, so we can infer the drivers of a positive or negative tweet."
-        ),
-        html.Br(),
-        html.Br(),
-        html.H2('Polarity of the Tweets'),   
-        html.Div(
-            dcc.Graph(figure=fig),
-            className="border"
-        ),
-        html.Br(),
-        html.Br(),
-        html.H2("Polarity of the Tweets"),
-        html.Div(
-            dcc.Graph(figure=fig2),
-            className="border"
-        ),
-        html.Br(),
-        html.Br(),
-        html.H2("PieChart Polarity of the Tweets"),
-        html.Div(
-            dcc.Graph(figure=fig3),
-            className="border"
-        ),
-        html.Br(),
-        html.Br(),
-        html.H2(f"Sentiment evolution over time ({bucket} - hour bucket)"),
-        html.Div(
-            dcc.Graph(figure=fig4),
-            className="border"
         ),
         html.Br(),
         html.Br(),
@@ -263,6 +312,52 @@ layout = html.Div([
         ),
         html.Br(),
         html.Br(),
+        html.H2("Words associated to positive sentiement"),
+        html.Div(
+            dcc.Graph(figure=fig10),
+            className="border"
+        ),
+        html.H2("Words associated to positive sentiement"),
+        html.Div(
+            dcc.Graph(figure=fig11),
+            className="border"
+        ),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.H2('Polarity of the Tweets'),   
+        html.Div(
+            dcc.Graph(figure=fig),
+            className="border"
+        ),
+        html.Br(),
+        html.Br(),
+        html.H2("Polarity of the Tweets"),
+        html.Div(
+            dcc.Graph(figure=fig2),
+            className="border"
+        ),
+        html.Br(),
+        html.Br(),
+        html.H2("PieChart Polarity of the Tweets"),
+        html.Div(
+            dcc.Graph(figure=fig3),
+            className="border"
+        ),
+        html.Br(),
+        html.Br(),
+        html.H2(f"Sentiment evolution over time ({bucket} - hour bucket)"),
+        html.Div(
+            dcc.Graph(figure=fig4),
+            className="border"
+        ),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
         html.H2('Likes distribution across the different sentiments'),
         html.Div(
             dcc.Graph(figure=fig6),
@@ -276,9 +371,23 @@ layout = html.Div([
             className="border"
         ),
         html.Br(),
+        html.P('The previous plots show for the period of analisys that the neutral tweets are the most favored and retweeted, followed by the positive. Negative sentiment in the tweets seems not to be spread as the rest if the information. However, below we show the average values of the retweet count and favoroured count for each sentiment, where it is to emphasize that the "natural order of the catagories" seems to prevail. Nevertheless that pattern is not followed by the retweet, where the neutral tweets tend do lead the dissemination of information.'),
+        html.Br(),
+        html.H2("Amount of tweets"),
+        html.Div(
+            dcc.Graph(figure=fig8),
+            className="border"
+        ),
         html.Br(),
         html.Br(),
-        html.Br()           
+        html.Br(),
+        html.Br(),
+        html.H2("categoryorder"),
+        html.Div(
+            dcc.Graph(figure=fig9),
+            className="border"
+        )
+                  
     ]),
     commonmodules.get_footer(),
 ])
