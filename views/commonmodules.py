@@ -26,16 +26,16 @@ def get_header():
                     html.Ul(
                         children=[
                             html.Li(
-                                html.A("EDA", href="/EDA", className="nav-link")
+                                html.A("EDA", href="/EDA", className="nav-link active h4")
                                 , className="nav-item"),
                             html.Li( 
-                                html.A( "Analizer", href="/search", className="nav-link")
+                                html.A( "Analizer", href="/search", className="nav-link active h4")
                                 , className="nav-item" ),
                             html.Li( 
-                                html.A("Show Graphs", href="/scatterplot", className="nav-link")
+                                html.A("Graphs", href="/scatterplot", className="nav-link active h4")
                                 , className="nav-item")
                     ], className="ml-auto navbar-nav")
-                ], className="collapse navbar-collapse" )
+                ], className="collapse navbar-collapse")
             ], className="container"),
             className="navbar navbar-expand-md navbar-light navbar-dark bg-primary")
     return header

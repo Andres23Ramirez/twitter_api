@@ -73,7 +73,6 @@ bucket = 4
 c = ['created_at']
 for i in columns.values:
     c.append(i)
-print(c)
 ts = df[c].resample(f'{bucket}H', on = 'created_at').sum()
 
 fig4 = go.Figure()

@@ -79,7 +79,6 @@ layout = html.Div([
             ]
         ),
         html.Br(),
-        dcc.Link("Show Graphs",href="/scatterplot"),
         html.Br(),
         html.Div( id='output-state'),
         html.Br(),
@@ -104,7 +103,15 @@ def update_output(n_clicks, input1, input2, input3, input4):
 
         return_divs = []
         size = len(df)
-        return_divs.append(html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(str(size) + '0 Tweets', className='card-title'), html.P(' Tweets were found', className='card-text')]), ]))
+        return_divs.append(html.Div(className='card text-white bg-primary mb-3', 
+        children=[html.Div('Tweet', className='card-header'), 
+        html.Div(className='card-body', 
+            children=
+                [html.H4(str(size) + 'Tweets', className='card-title'), 
+                 html.P(' Tweets were found', className='card-text'),
+                 dcc.Link("Show Graphs",href="/scatterplot", className="btn btn-primary stretched-link")
+                ]), 
+        ]))
         
         """ tweets_text = []
         for index, row in df.iterrows():

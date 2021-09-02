@@ -9,8 +9,28 @@ team_mates = ['Valentina Parra', 'Rodian Andrés Oliveros', 'Edwin Romero', 'Dav
 
 layout = html.Div([
     commonmodules.get_header(),
-    commonmodules.get_menu(),
-    dbc.Container([
+    commonmodules.get_menu(), 
+    dbc.Carousel(
+            items=[
+                {
+                    "key": "1",
+                    "src": "/assets/img/2.png",
+                    "header": "Vaccines save lives, let's find out what Twitter has to say"
+                },
+                {
+                    "key": "2",
+                    "src": "/assets/img/3.png",
+                    "header": "Vaccines save lives, let's find out what Twitter has to say"
+                },
+                {
+                    "key": "3",
+                    "src": "/assets/img/5.png",
+                    "header": "Vaccines save lives, let's find out what Twitter has to say"
+                },
+            ],
+            indicators=False
+        ),   
+    dbc.Container([        
         html.Br(),
         html.Br(),
         html.Br(),
