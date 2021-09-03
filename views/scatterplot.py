@@ -299,10 +299,11 @@ layout = html.Div([
         html.Br(),
         html.H1(
             "Now we focus on identifying the characterization of the tweets, so we can infer the drivers of a positive or negative tweet."
+            , className='test-center'
         ),
         html.Br(),
         html.Br(),
-        html.H2("Time Graph"),
+        html.H2("Time Graph", className='test-center'),
         html.Div(
             dcc.Graph(figure=fig12),
             className="border"
