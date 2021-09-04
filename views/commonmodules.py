@@ -14,7 +14,8 @@ from app import app
 def get_header():
     header = html.Nav(
             html.Div(children=[
-                html.A(html.Img(src="./assets/img/logo.png", sizes="30px"), href="/", className="navbar-brand"),
+                html.Div(html.A(html.Img(src="./assets/img/logo.png", sizes="30px"), href="/", className="navbar-brand")),
+                html.A(html.Img(src="./assets/img/logo 2.png", sizes="30px"), href="/", className="navbar-brand"),
                 html.Button( children=[
                     html.Span( className="navbar-toggler-icon")
                 ],
@@ -26,13 +27,16 @@ def get_header():
                     html.Ul(
                         children=[
                             html.Li(
-                                html.A("EDA", href="/EDA", className="nav-link active h4")
+                                html.A("Home", href="/home", className="nav-link active h5")
+                                , className="nav-item"),
+                            html.Li(
+                                html.A("Eda", href="/EDA", className="nav-link active h5")
                                 , className="nav-item"),
                             html.Li( 
-                                html.A( "Analizer", href="/search", className="nav-link active h4")
+                                html.A( "Analizer", href="/search", className="nav-link active h5")
                                 , className="nav-item" ),
                             html.Li( 
-                                html.A("Graphs", href="/scatterplot", className="nav-link active h4")
+                                html.A("Graphs", href="/scatterplot", className="nav-link active h5")
                                 , className="nav-item")
                     ], className="ml-auto navbar-nav")
                 ], className="collapse navbar-collapse")

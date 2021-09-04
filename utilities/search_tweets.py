@@ -18,7 +18,7 @@ def get_tweets(words, city, result_type, times):
     # Create our query
     myheaders = ['created_at', 'id', 'id_str','full_text', 'source','truncated','in_reply_to_status_id','in_reply_to_status_id_str','in_reply_to_user_id','in_reply_to_user_id_str','in_reply_to_screen_name','user','coordinates','place','quoted_status_id','quoted_status_id_str','is_quote_status','quoted_status','retweeted_status','quote_count','reply_count','retweet_count','favorite_count','entities','extended_entities','favorited','retweeted','possibly_sensitive','filter_level','lang','matching_rules', 'current_user_retweet', 'scopes', 'withheld_copyright', 'withheld_in_countries', 'withheld_scope', 'contributors', 'geo', 'metadata', 'display_text_range']
 
-    with open("tweets_analizer.csv", 'r+') as f:
+    with open("data/tweets_analizer.csv", 'r+') as f:
         f.truncate(0)
         exist = False 
 
@@ -31,7 +31,7 @@ def get_tweets(words, city, result_type, times):
 
     for i in range(0, times, 1):        
         statuses = python_tweets.search(**query)['statuses']    
-        with open('tweets_analizer.csv', 'a', newline='') as myfile:    
+        with open('data/tweets_analizer.csv', 'a', newline='') as myfile:    
             writer = csv.DictWriter(myfile, fieldnames=myheaders)
             if not exist:
                 writer.writeheader()
@@ -50,4 +50,5 @@ def get_tweets(words, city, result_type, times):
             'tweet_mode': 'extended',
             'max_id': min
             }
-    return pd.read_csv('tweets_analizer.csv')
+    return pd.read_csv('data/tweets_analizer.csv')
+    

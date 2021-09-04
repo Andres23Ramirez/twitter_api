@@ -28,7 +28,7 @@ from app import app
 
 palabras_irrelevantes = get_stop_words('spanish')
 
-datos2 = pd.read_csv('results_tweets_analizer.csv')
+datos2 = pd.read_csv('data/results_tweets_analizer.csv')
 df = datos2.copy()
 df = df.reset_index().drop(columns='index')
 df.created_at = pd.to_datetime(df.created_at)

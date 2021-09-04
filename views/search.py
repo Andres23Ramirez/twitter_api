@@ -37,7 +37,7 @@ layout = html.Div([
                 ),
                 dbc.FormGroup(
                 [
-                    dbc.Label("Tweets Result Type Hola", className="mr-2 "),
+                    dbc.Label("Tweets Result Type", className="mr-2 "),
                     dbc.Col(
                     dbc.RadioItems(
                         id="input-3-state",
@@ -93,15 +93,15 @@ def update_output(n_clicks, input1, input2, input3, input4):
         time = 25
         words = input2.split(",")
         get_tweets(words, input1, input3, input4)
-        df_result = pd.read_csv('tweets_analizer.csv',header=0)
+        df_result = pd.read_csv('data/tweets_analizer.csv',header=0)
         
         try:
             modelo_v
         except:
             modelo_v = get_modelo()
         
-        df = get_result(pd.read_csv('tweets_analizer.csv',header=0))
-        df.to_csv('results_tweets_analizer.csv', index=False)
+        df = get_result(pd.read_csv('data/tweets_analizer.csv',header=0))
+        df.to_csv('data/results_tweets_analizer.csv', index=False)
         time = 50
         df['polarity_v'] = modelo_v.predict(df_result['full_text'])
         time = 100

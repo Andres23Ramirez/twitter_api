@@ -15,7 +15,7 @@ layout = html.Div([
                 {
                     "key": "1",
                     "src": "/assets/img/2.png",
-                    "header": "Vaccines save lives, let's find out what Twitter has to say"
+                    "header": "Twittycs - A sentiment analysis of the COVID-19 vaccines perception in Colombia"
                 },
                 {
                     "key": "2",
@@ -25,7 +25,7 @@ layout = html.Div([
                 {
                     "key": "3",
                     "src": "/assets/img/5.png",
-                    "header": "Vaccines save lives, let's find out what Twitter has to say"
+                    "header": "In uncertain times, who do we trust? "
                 },
             ],
             indicators=False
