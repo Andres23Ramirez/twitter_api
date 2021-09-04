@@ -1,27 +1,14 @@
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 from views import commonmodules
-import pandas as pd
-from joblib import dump, load
-import pickle 
+import pandas as pd 
 from app import app
 from utilities.search_tweets import get_tweets
-from models.analisis_de_sentimiento import get_result
-from utilities.modelo_nuevo import get_modelo 
-import nltk
-import gzip
-from nltk.corpus import stopwords
-from nltk import word_tokenize
-from nltk.data import load
-from nltk.stem import SnowballStemmer
-from string import punctuation
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn import preprocessing
-from sklearn.pipeline import Pipeline
-from sklearn.svm import LinearSVC
+from models.model_e import get_result
+from models.model_v import get_modelo
+import time
 
 
 layout = html.Div([
@@ -50,7 +37,7 @@ layout = html.Div([
                 ),
                 dbc.FormGroup(
                 [
-                    dbc.Label("Tweets Result Type", className="mr-2 "),
+                    dbc.Label("Tweets Result Type Hola", className="mr-2 "),
                     dbc.Col(
                     dbc.RadioItems(
                         id="input-3-state",
@@ -80,7 +67,12 @@ layout = html.Div([
         ),
         html.Br(),
         html.Br(),
-        html.Div( id='output-state'),
+        dbc.Row(dbc.Col(
+            dbc.Spinner(children=[html.Div( id='output-state'),], 
+            size="lg", color="primary", type="border", fullscreen=True,),
+            width={'size': 12, 'offset': 0}),
+        ),
+        #html.Div( id='output-state'),
         html.Br(),
         ]),
     commonmodules.get_footer()
@@ -93,9 +85,12 @@ layout = html.Div([
               State('input-3-state', 'value'),
               State('input-4-state', 'value'))
 def update_output(n_clicks, input1, input2, input3, input4):
-    return_divs = html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4('0 Tweets', className='card-title'), html.P('There are not tweets', className='card-text')]), ]),
+    return_divs = []
+    time = 0
+    return_divs.append(html.Br())
+    return_divs.append(html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4('0 Tweets', className='card-title'), html.P('There are not tweets', className='card-text')]), ]))
     if input2 is not None:
-        
+        time = 25
         words = input2.split(",")
         get_tweets(words, input1, input3, input4)
         df_result = pd.read_csv('tweets_analizer.csv',header=0)
@@ -107,7 +102,9 @@ def update_output(n_clicks, input1, input2, input3, input4):
         
         df = get_result(pd.read_csv('tweets_analizer.csv',header=0))
         df.to_csv('results_tweets_analizer.csv', index=False)
+        time = 50
         df['polarity_v'] = modelo_v.predict(df_result['full_text'])
+        time = 100
 
         return_divs = []
         size = len(df)
@@ -121,55 +118,34 @@ def update_output(n_clicks, input1, input2, input3, input4):
                 ]), 
         ]))
         
-        """ tweets_text = []
-        for index, row in df.iterrows():
-            try:
-                tweets_text = tweets_text.append(row['full_text'])
-            except: 
-                pass """
- 
-        #model = load("models/model.pkl")
-        """ with gzip.open('model_v3.pklz', 'rb') as f:
-            print("load")
-            model = pickle.load(f) """
-        
-        """ with open('models/model.pkl', 'rb') as f:
-            unpickler = MyCustomUnpickler(f)
-            model = unpickler.load() """
-
-        """ print("Model")
-        print(model)
-        results = model.predict(tweets_text) """
-        #0 = Negativo y 1= Positivo
-        
         for index, row in df.iterrows():
             result_word = ''
+            return_divs.append(html.Hr())
             if row['result'] > 0:
                 result_word = "Positivo"
-                return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+                return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet analized by Model E', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
                 if row['polarity_v']> 0:
-                    return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet Modelo Valentina', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))                    
-                elif row['result'] < 0:
+                    return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet analized by Modelo V', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))                    
+                else:
                     result_word = "Negativo"
-                    return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet Modelo Valentina', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+                    return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet analized by Modelo V', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
             
             elif row['result'] < 0:
                 result_word = "Negativo"
-                return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+                return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet analized by Model E', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
                 if row['polarity_v']< 0:
-                    return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet Modelo Valentina', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))                    
-                elif row['result'] > 0:
-                    result_word = "Negativo"
-                    return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet Modelo Valentina', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
-            
+                    return_divs.append( ( html.Div(className='card text-white bg-danger bg-success mb-3', children=[html.Div('Tweet analized by Modelo V', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))                    
+                else:
+                    result_word = "Positivo"
+                    return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet analized by Modelo V', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
             else:
                 result_word = "Neutro"
-                return_divs.append( ( html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+                return_divs.append( ( html.Div(className='card text-white bg-primary mb-3', children=[html.Div('Tweet analized by Model E', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
                 if row['polarity_v']< 0:
                     result_word = "Negativo"
-                    return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet Modelo Valentina', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))                    
-                elif row['result'] >= 0:
+                    return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet analized by Modelo V', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))                    
+                else:
                     result_word = "Positivo"
-                    return_divs.append( ( html.Div(className='card text-white bg-danger mb-3', children=[html.Div('Tweet Modelo Valentina', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
-            
+                    return_divs.append( ( html.Div(className='card text-white bg-success mb-3', children=[html.Div('Tweet analized by Modelo V', className='card-header'), html.Div(className='card-body', children=[html.H4(result_word, className='card-title'), html.P(row['full_text'], className='card-text')]), ])))
+            return_divs.append(html.Hr())        
     return return_divs

@@ -67,7 +67,7 @@ fig3 = px.pie(df.groupby('value')['polarity'].count(),
             values = df.groupby('value')['polarity'].count(),
             names = df.groupby('value')['polarity'].count().index,
             color = df.groupby('value')['polarity'].count().index,
-            color_discrete_map={'Neutral':'gray', 'Positive':'green', 'Negative':'red'})
+            color_discrete_map={'Neutral':'blue', 'Positive':'green', 'Negative':'red'})
 
 
 ##figura 4
@@ -138,7 +138,7 @@ fig6 = px.histogram(df,
                     color = "value",  
                     marginal = "rug", 
                     hover_name = "full_text",
-                    color_discrete_sequence = ['gray', 'red', 'green']
+                    color_discrete_sequence = ['blue', 'red', 'green']
 )
 fig6.update_traces(opacity=0.75)
 fig6.update_layout(barmode='overlay')
@@ -153,7 +153,7 @@ fig7 = px.histogram(df,
                     x = 'retweet_count', 
                     color = "value",  
                     marginal = "rug", 
-                    color_discrete_sequence = ['gray', 'red', 'green'],
+                    color_discrete_sequence = ['blue', 'red', 'green'],
                     # histnorm='probability density'
                     hover_name = "full_text",
 )
@@ -248,7 +248,7 @@ fig12 = px.bar(ts2,
              animation_frame = "created_at",
              range_x=[0,max(ts2.value)],
              labels = {'variable': 'Sentiment', 'value': 'Amount of tweets', 'created_at': 'time'},
-             color_discrete_map={'Neutral':'gray', 'Positive':'green', 'Negative':'red'}
+             color_discrete_map={'Neutral':'blue', 'Positive':'green', 'Negative':'red'}
             )
 ##Layout --------------------------------------------
 

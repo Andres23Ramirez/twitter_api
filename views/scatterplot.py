@@ -1,4 +1,3 @@
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -9,7 +8,6 @@ from io import BytesIO
 from wordcloud import WordCloud
 import base64
 import warnings
-import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -30,7 +28,6 @@ from app import app
 
 palabras_irrelevantes = get_stop_words('spanish')
 
-
 datos2 = pd.read_csv('results_tweets_analizer.csv')
 df = datos2.copy()
 df = df.reset_index().drop(columns='index')
@@ -50,10 +47,8 @@ group_labels = ['Polaridad'] # name of the dataset
 bins = 0.05
 
 fig2 = ff.create_distplot(hist_data, group_labels, bin_size=.1)
-#fig2.update_layout(title_text = 'Polarity of the Tweets')
 
 ##figura 3
-
 neg = 0
 pos = 0.2
 df['value'] = 'Neutral'
@@ -66,7 +61,7 @@ fig3 = px.pie(df.groupby('value')['polarity'].count(),
             values = df.groupby('value')['polarity'].count(),
             names = df.groupby('value')['polarity'].count().index,
             color = df.groupby('value')['polarity'].count().index,
-            color_discrete_map={'Neutral':'gray', 'Positive':'green', 'Negative':'red'})
+            color_discrete_map={'Neutral':'blue', 'Positive':'green', 'Negative':'red'})
 
 
 ##figura 4
@@ -104,7 +99,6 @@ pos_wordcloud = neg_wordcloud = neu_wordcloud = WordCloud(width = large, height 
                     relative_scaling = 0,
                     min_font_size = 10).generate('empty')
 
-print(df.loc[df['value'] == 'Positive'])
 if not (df.loc[df['value'] == 'Positive']).empty:
     pos_textoWC = ' '.join(df.loc[df['value'] == 'Positive', 'clean_text'])
     pos_wordcloud = WordCloud(width = large, height = large, 
@@ -130,8 +124,6 @@ if not (df.loc[df['value'] == 'Neutral']).empty:
                     min_font_size = 10).generate(neu_textoWC) 
 
 plt.figure(figsize = (8, 8), facecolor = None) 
-#fig5 = plt.subplots(1, 3)
-#wc = WordCloud(background_color='black', width=480, height=360)
 try:
     pos_wordcloud
 except NameError:
@@ -153,24 +145,13 @@ except NameError:
 else:
     fig_neg_wordcloud1 = neg_wordcloud.to_image
 
-""" ax1.axis("off")
-ax1.set_title("Negative Tweets") 
-ax2.imshow(neu_wordcloud, interpolation='bilinear')
-ax2.axis("off")
-ax2.set_title("Neutral Tweets")
-ax3.imshow(pos_wordcloud, interpolation='bilinear')
-ax3.axis("off")
-ax3.set_title("Positive Tweets") 
-plt.tight_layout(pad = 0) 
-fig5.suptitle('Word Cloud of:')   """
-
 ##Figura 6
 fig6 = px.histogram(df,
                     x = 'favorite_count', 
                     color = "value",  
                     marginal = "rug", 
                     hover_name = "full_text",
-                    color_discrete_sequence = ['gray', 'red', 'green']
+                    color_discrete_sequence = ['blue', 'red', 'green']
 )
 fig6.update_traces(opacity=0.75)
 fig6.update_layout(barmode='overlay')
@@ -185,7 +166,7 @@ fig7 = px.histogram(df,
                     x = 'retweet_count', 
                     color = "value",  
                     marginal = "rug", 
-                    color_discrete_sequence = ['gray', 'red', 'green'],
+                    color_discrete_sequence = ['blue', 'red', 'green'],
                     # histnorm='probability density'
                     hover_name = "full_text",
 )
@@ -286,7 +267,7 @@ if 'Negative' in df and 'Neutral' in df and 'Positive' in df:
                 animation_frame = "created_at",
                 range_x=[0,max(ts2.value)],
                 labels = {'variable': 'Sentiment', 'value': 'Amount of tweets', 'created_at': 'time'},
-                color_discrete_map={'Neutral':'gray', 'Positive':'green', 'Negative':'red'}
+                color_discrete_map={'Neutral':'blue', 'Positive':'green', 'Negative':'red'}
                 )
 
 ###--------------------------------------------------------------
