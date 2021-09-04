@@ -14,17 +14,15 @@ from app import app
 def get_header():
     header =    html.Div(children=[  
                     html.Div(children=[   
-                            html.Div(
-                                    "DS4A / Colombia - Cohort 5",
-                                    className='col-sm-8 text-light'
-                                ),                
-                            html.Div(
-                                html.Img(src="./assets/img/ds4a.png", style={'height': '30px', 'width': '100px'}),
-                                className='col-sm-2'
-                            ),
-                            html.Div(
-                                html.Img(src="./assets/img/mintic.png", style={'height': '30px', 'width': '100px'}),
-                                className='col-sm-2'
+                            html.Div(children=[ 
+                                    html.Span("DS4A / Colombia - Cohort 5")
+                                    ],                                    
+                                    className='col-sm-8 text-light text-justify'
+                                ),
+                            html.Div(children=[
+                                html.Img(src="./assets/img/ds4a.png", style={'height': '25px', 'width': '100px'}),
+                                html.Img(src="./assets/img/mintic.png", style={'height': '25px', 'width': '100px'}),
+                                ],className='col-sm-4 d-flex flex-row-reverse'
                             )
                         ],                    
                         className='row bg-secondary'

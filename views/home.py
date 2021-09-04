@@ -36,20 +36,75 @@ layout = html.Div([
         html.Br(),
         html.H2('Cracking the code: In uncertain times, who do we trust? A sentiment analysis of the COVID-19 vaccines perception in Colombia'),
         html.Br(),
-        html.H3('Team Members'),
-        html.Div(
-            className="team_mates",
-            children=[
-                html.Ul(id='team_mates', children=[html.Li(i) for i in team_mates])
-            ],
-        ),
+        html.Div(children=[ 
+            html.Div(children=[
+                html.Div(children=[
+                        html.H3('Team Members'),
+                        html.Div(
+                            className="team_mates",
+                            children=[
+                                html.Ul(id='team_mates', children=[html.Li(i) for i in team_mates])
+                            ],
+                    ),
+                    ], className='col-sm-4'),
+                    html.Div(children=[
+                        dbc.Carousel(
+                                items=[
+                                    {
+                                        "key": "1",
+                                        "src": "/assets/img/avatar.png",
+                                        "header": "Valentina Parra",
+                                        "caption": "Data Scientist and Machine Learning Engineer"
+                                    },
+                                    {
+                                        "key": "2",
+                                        "src": "/assets/img/rodian.png",
+                                        "header": "Rodian Andrés Oliveros",
+                                        "caption": "Data Analyst / Data Scientist"
+                                    },
+                                    {
+                                        "key": "3",
+                                        "src": "/assets/img/avatar.png",
+                                        "header": "Felipe Bonnet",
+                                        "caption": "Director, cinematographer and Data Translator"
+                                    },
+                                    {
+                                        "key": "4",
+                                        "src": "/assets/img/avatar.png",
+                                        "header": "Edwin Romero",
+                                        "caption": "Data Scientist and Machine Learning Engineer"
+                                    },
+                                    {
+                                        "key": "5",
+                                        "src": "/assets/img/avatar.png",
+                                        "header": "David Mauricio Arquez",
+                                        "caption": "designer, Data Translator and BI"
+                                    },
+                                    {
+                                        "key": "6",
+                                        "src": "/assets/img/avatar.png",
+                                        "header": "Oscar Andrés Zapata",
+                                        "caption": "Data Engineer"
+                                    },
+                                    {
+                                        "key": "7",
+                                        "src": "/assets/img/rodrigo.png",
+                                        "header": "Rodrigo Andres Ramirez Aguirre",
+                                        "caption": "Developer Expert and Data Engineer"
+                                    },
+                                ],
+                                indicators=False,
+                                className='carousel-fade carousel-thumbnails'
+                            ), 
+                    ], className='col-sm-8 '),
+                ], className='row'),
+            ], className='container'),
         html.Br(),
         html.H3('Executive Summary'),
         html.P('History is written by the victors, and we as humans have been told what the truth is from an unanimous source we haven’t truly questioned. Yet, in these trying times filled with uncertainty and fear, a lack of trust over the truth has reigned over us, preventing us from taking informed decisions. Polarization has spiked thanks to an incessant barrage of news declaring each piece as the sole owner of the “truth”, leading to paralysis in the face of decision-making.'),
         html.P('This phenomenon has been affecting us for quite some time, but never has it been more prevalent than during the COVID-19 pandemic. Social media and technology have facilitated the spread of (mis)communication, leading to easy access to “reputable” sources claiming the truth behind the source of the virus, the efficacy of quarantine measures, and the safety of the vaccines, amongst many others.'),
         html.P('For all governments, it is essential that their population understands the pandemic and how vaccination can be a powerful weapon against it. To date, Colombia has managed to vaccinate nearly 30% of its population, as well as opening it’s vaccination efforts to all the general population, having previously been restricted to the older and vulnerable age groups. Nonetheless, it is still facing constant backlash and outright refusal from opposers who do not trust the safety of the process nor the intentions of the government.'),
         html.P('Herein lies the crux of the matter: ¿How can the Colombian government support and improve its vaccination efforts? This question leads the investigative, analytical, and conclusive endeavor of this project, geared towards the Ministerio de Salud and their potential measures towards increasing vaccination rate.'),
-
         html.Br(),
         html.H3('Business Context'),
         html.P('Colombia has had roughly 33% of the population vaccinated with at least one dosis against COVID-19, though it lags behind some of its south american neighbours who already have over 50% of their population partly vaccinated. In the graph below, we can identify that Colombia occupies the 6 position out of the 12 South American countries, evidencing the reduced pacing the country faces (Mathieu, Ritchie, Ospina et al, 2021). '),
