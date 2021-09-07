@@ -42,7 +42,7 @@ def get_header():
                             html.Ul(
                                 children=[
                                     html.Li(
-                                        html.A("Home", href="/home", className="nav-link active h5")
+                                        html.A("Home", href="/", className="nav-link active h5")
                                         , className="nav-item"),
                                     html.Li(
                                         html.A("Eda", href="/EDA", className="nav-link active h5")

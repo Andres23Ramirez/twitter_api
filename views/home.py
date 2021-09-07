@@ -34,85 +34,112 @@ layout = html.Div([
         html.Br(),
         html.Br(),
         html.Br(),
-        html.H2('Cracking the code: In uncertain times, who do we trust? A sentiment analysis of the COVID-19 vaccines perception in Colombia'),
+        html.H2('Cracking the code: In uncertain times, who do we trust?', className='text-center font-weight-bold'),
+        html.P('A sentiment analysis of the COVID-19 vaccines perception in Colombia', className='text-center font-italic'),
         html.Br(),
+        html.Hr(),
+        html.Br(),
+        html.Br(),
+        html.H2('Summary', className='text-center font-weight-bold'),
+        html.Br(),
+        html.Br(),
+        html.Div(children=[
+                html.Iframe( "allowfullscreen"
+                    ,className="embed-responsive-item" 
+                    ,src="https://www.youtube.com/embed/0NlGDhjNrzY" 
+                )]
+            ,className="embed-responsive embed-responsive-4by3"
+        ),
+        html.Br(),
+        html.Hr(),
+        html.H2('Team Members', className='text-center font-weight-bold'),
+        html.Br(),
+        html.Br(),
+        html.H3("Members: "),
         html.Div(children=[ 
             html.Div(children=[
                 html.Div(children=[
-                        html.H3('Team Members'),
                         html.Div(
                             className="team_mates",
                             children=[
                                 html.Ul(id='team_mates', children=[html.Li(i) for i in team_mates])
                             ],
                     ),
-                    ], className='col-sm-4'),
+                    ], className='col-sm-6'),
                     html.Div(children=[
                         dbc.Carousel(
                                 items=[
                                     {
                                         "key": "1",
-                                        "src": "/assets/img/avatar.png",
+                                        "src": "/assets/img/valentina.png",
                                         "header": "Valentina Parra",
-                                        "caption": "Data Scientist and Machine Learning Engineer"
+                                        "caption": "Data Scientist and Machine Learning Engineer",
+                                        "imgClassName": "image_new_class"
                                     },
                                     {
                                         "key": "2",
                                         "src": "/assets/img/rodian.png",
                                         "header": "Rodian Andrés Oliveros",
-                                        "caption": "Data Analyst / Data Scientist"
+                                        "caption": "Data Analyst / Data Scientist",
+                                        "imgClassName": "image_new_class"
                                     },
                                     {
                                         "key": "3",
-                                        "src": "/assets/img/avatar.png",
+                                        "src": "/assets/img/felipe.png",
                                         "header": "Felipe Bonnet",
-                                        "caption": "Director, cinematographer and Data Translator"
+                                        "caption": "Director, cinematographer and Data Translator",
+                                        "imgClassName": "image_new_class"
                                     },
                                     {
                                         "key": "4",
-                                        "src": "/assets/img/avatar.png",
+                                        "src": "/assets/img/not_photo.png",
                                         "header": "Edwin Romero",
-                                        "caption": "Data Scientist and Machine Learning Engineer"
+                                        "caption": "Data Scientist and Machine Learning Engineer",
+                                        "imgClassName": "image_new_class"
                                     },
                                     {
                                         "key": "5",
-                                        "src": "/assets/img/avatar.png",
+                                        "src": "/assets/img/not_photo.png",
                                         "header": "David Mauricio Arquez",
-                                        "caption": "designer, Data Translator and BI"
+                                        "caption": "designer, Data Translator and BI",
+                                        "imgClassName": "image_new_class"
                                     },
                                     {
                                         "key": "6",
-                                        "src": "/assets/img/avatar.png",
+                                        "src": "/assets/img/not_photo.png",
                                         "header": "Oscar Andrés Zapata",
-                                        "caption": "Data Engineer"
+                                        "caption": "Data Engineer",
+                                        "imgClassName": "image_new_class"
                                     },
                                     {
                                         "key": "7",
                                         "src": "/assets/img/rodrigo.png",
                                         "header": "Rodrigo Andres Ramirez Aguirre",
-                                        "caption": "Developer Expert and Data Engineer"
+                                        "caption": "Developer Expert and Data Engineer",
+                                        "imgClassName": "image_new_class"
                                     },
                                 ],
                                 indicators=False,
                                 className='carousel-fade carousel-thumbnails'
                             ), 
-                    ], className='col-sm-8 '),
+                    ], className='col-sm-6 '),
                 ], className='row'),
             ], className='container'),
         html.Br(),
-        html.H3('Executive Summary'),
-        html.P('History is written by the victors, and we as humans have been told what the truth is from an unanimous source we haven’t truly questioned. Yet, in these trying times filled with uncertainty and fear, a lack of trust over the truth has reigned over us, preventing us from taking informed decisions. Polarization has spiked thanks to an incessant barrage of news declaring each piece as the sole owner of the “truth”, leading to paralysis in the face of decision-making.'),
-        html.P('This phenomenon has been affecting us for quite some time, but never has it been more prevalent than during the COVID-19 pandemic. Social media and technology have facilitated the spread of (mis)communication, leading to easy access to “reputable” sources claiming the truth behind the source of the virus, the efficacy of quarantine measures, and the safety of the vaccines, amongst many others.'),
-        html.P('For all governments, it is essential that their population understands the pandemic and how vaccination can be a powerful weapon against it. To date, Colombia has managed to vaccinate nearly 30% of its population, as well as opening it’s vaccination efforts to all the general population, having previously been restricted to the older and vulnerable age groups. Nonetheless, it is still facing constant backlash and outright refusal from opposers who do not trust the safety of the process nor the intentions of the government.'),
-        html.P('Herein lies the crux of the matter: ¿How can the Colombian government support and improve its vaccination efforts? This question leads the investigative, analytical, and conclusive endeavor of this project, geared towards the Ministerio de Salud and their potential measures towards increasing vaccination rate.'),
         html.Br(),
-        html.H3('Business Context'),
+        html.Hr(),
+        html.H3('Business Context', className='text-center font-weight-bold'),
         html.P('Colombia has had roughly 33% of the population vaccinated with at least one dosis against COVID-19, though it lags behind some of its south american neighbours who already have over 50% of their population partly vaccinated. In the graph below, we can identify that Colombia occupies the 6 position out of the 12 South American countries, evidencing the reduced pacing the country faces (Mathieu, Ritchie, Ospina et al, 2021). '),
         html.Div([ 
                 html.Img(
                         src = app.get_asset_url('img/coronavirus-data-explorer.png'),
                         height = '75%',
-                        width = '75%')
+                        width = '75%',
+                        style = {
+                        'alignItems': 'center',
+                        'paddingTop' : '1%',
+                        'height' : '95%',
+                        'width' : '95%'})
                 ],
                 className = '',
                 style = {
@@ -132,33 +159,8 @@ layout = html.Div([
                 ]])
             ],
         ),
-        html.P('The results of the survey can be shown in the graph below, with one being the least and five being the most important reason why a physician would accept a free vaccine (Basel, 2021).'),
-        html.Div([ 
-                html.Img(
-                        src = app.get_asset_url('img/effectiveness.jpg'),
-                        height = '75%',
-                        width = '75%')
-                ],
-                className = '',
-                style = {
-                        'alignItems': 'center',
-                        'paddingTop' : '1%',
-                        'height' : '95%',
-                        'width' : '95%'}),
-        html.P('According to the conclusions of this study, it was found that between 77% and 90,7% of surveyed physicians accepted Colombia’s COVID-19 vaccination. While these results are encouraging, and despite the rather favourable reception, the same conclusion may not apply to the general population. '),
-        html.P('Comprehending the digital media landscape and identifying one of the most used and influential networks for news sharing and commenting led to the subsequent analysis of Twitter. Aiming to further understand the perception of the general public, this study tried to analyze the comments surrounding the different vaccines in Twitter, one of the countries most used social media amongst digital users (Statista, 2021).'),
-        html.Div([ 
-                html.Img(
-                        src = app.get_asset_url('img/statista.png'),
-                        height = '75%',
-                        width = '75%')
-                ],
-                className = '',
-                style = {
-                        'alignItems': 'center',
-                        'paddingTop' : '1%',
-                        'height' : '95%',
-                        'width' : '95%'}),
+        html.Hr(),
+
         html.P("Team 54 wants to apply several of the tools seen during the DS4A Colombia program to be able to carry out a sentiment analysis through the NLP (Natural Language Processing) technique through the Twitter developer tool in order to extract data and understand what is the People's perception regarding a conjunctural issue such as vaccination in times of the Pandemic (COVID-19) and being able to understand this reality in Colombia and share the findings using Data Science."),
         html.P("The vaccination panorama in Colombia lags behind its Latin American peers, but the government's vaccination programs are advancing to be able to carry out this objective in stages where vaccination is being carried out by age range, while people are also adopting new ones behaviors and ways of thinking in society with respect to this reality."),
         html.P("Therefore, it is important to analyze what the impression is and how people are assimilating this, for this we want to tear data from the people who post tweets regarding vaccines, having as an axis the tweets that contain keywords such as the names of the vaccines, pandemic, COVID-19 and understand if there are clusters where the perception is negative or positive."),

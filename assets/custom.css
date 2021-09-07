@@ -1,3 +1,18 @@
 .carousel-caption {
     background: rgba(0, 0, 0, 0.3)
 }
+
+.carousel-thumbnails {
+    width: 85%;
+    height: 85%;
+}
+
+.image_new_class {
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+}
+
+:root {
+    --primary: rgb(29 155 240);
+  }

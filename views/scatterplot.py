@@ -249,7 +249,7 @@ if not Positive.loc[:top, 'tweet'].empty and not Positive.loc[:top, 'index'].emp
                 orientation = 'h')
     fig11.update_layout(yaxis={'categoryorder':'total ascending'})
     fig11.update_layout(
-        title = f"Words associated to positive sentiement",
+        title = f"Words associated to negative sentiement",
         xaxis_title = "Tweet count",
         yaxis_title = "Words"
     )
@@ -280,22 +280,22 @@ layout = html.Div([
         html.Br(),
         html.H1(
             "Now we focus on identifying the characterization of the tweets, so we can infer the drivers of a positive or negative tweet."
-            , className='test-center'
+            , className='text-center font-weight-bold'
         ),
         html.Br(),
         html.Br(),
-        html.H2("Time Graph", className='test-center'),
+        html.H2("Time Graph", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig12),
             className="border"
         ),
         html.Br(),
         html.Br(),
-        html.H2("WordCloud"), 
+        html.H2("WordCloud", className='text-center font-weight-bold'), 
         html.Div(
             html.Div([
                 html.Div([
-                    html.H3("Positive Tweets"),
+                    html.H3("Positive Tweets", className='text-center font-weight-bold'),
                     html.Img(id="fig_pos_wordcloud1",
                     className = "img-fluid", alt=""
                     )
@@ -303,7 +303,7 @@ layout = html.Div([
                     className="col-sm"
                 ),
                 html.Div([
-                    html.H3("Neutral Tweets"),
+                    html.H3("Neutral Tweets", className='text-center font-weight-bold'),
                     html.Img(id="fig_neu_wordcloud1",
                     className = "img-fluid", alt=""
                     )
@@ -311,7 +311,7 @@ layout = html.Div([
                     className="col-sm"
                 ),
                 html.Div([
-                    html.H3("Negative Tweets"),
+                    html.H3("Negative Tweets", className='text-center font-weight-bold'),
                     html.Img(id="fig_neg_wordcloud1",
                     className = "img-fluid", alt=""
                     )
@@ -325,12 +325,12 @@ layout = html.Div([
         ),
         html.Br(),
         html.Br(),
-        html.H2("Words associated to positive sentiement"),
+        html.H2("Words associated to positive sentiement", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig10),
             className="border"
         ),
-        html.H2("Words associated to positive sentiement"),
+        html.H2("Words associated to positive sentiement", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig11),
             className="border"
@@ -341,28 +341,28 @@ layout = html.Div([
         html.Br(),
         html.Br(),
         html.Br(),
-        html.H2('Polarity of the Tweets'),   
+        html.H2('Polarity of the Tweets', className='text-center font-weight-bold'),   
         html.Div(
             dcc.Graph(figure=fig),
             className="border"
         ),
         html.Br(),
         html.Br(),
-        html.H2("Polarity of the Tweets"),
+        html.H2("Polarity of the Tweets", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig2),
             className="border"
         ),
         html.Br(),
         html.Br(),
-        html.H2("PieChart Polarity of the Tweets"),
+        html.H2("PieChart Polarity of the Tweets", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig3),
             className="border"
         ),
         html.Br(),
         html.Br(),
-        html.H2(f"Sentiment evolution over time ({bucket} - hour bucket)"),
+        html.H2(f"Sentiment evolution over time ({bucket} - hour bucket)", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig4),
             className="border"
@@ -371,14 +371,14 @@ layout = html.Div([
         html.Br(),
         html.Br(),
         html.Br(),
-        html.H2('Likes distribution across the different sentiments'),
+        html.H2('Likes distribution across the different sentiments', className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig6),
             className="border"
         ),
         html.Br(),
         html.Br(),
-        html.H2("Retweets distribution across the different sentiments"),
+        html.H2("Retweets distribution across the different sentiments", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig7),
             className="border"
@@ -386,7 +386,7 @@ layout = html.Div([
         html.Br(),
         html.P('The previous plots show for the period of analisys that the neutral tweets are the most favored and retweeted, followed by the positive. Negative sentiment in the tweets seems not to be spread as the rest if the information. However, below we show the average values of the retweet count and favoroured count for each sentiment, where it is to emphasize that the "natural order of the catagories" seems to prevail. Nevertheless that pattern is not followed by the retweet, where the neutral tweets tend do lead the dissemination of information.'),
         html.Br(),
-        html.H2("Amount of tweets"),
+        html.H2("Amount of tweets", className='text-center font-weight-bold'),
         html.Div(
             dcc.Graph(figure=fig8),
             className="border"
@@ -395,7 +395,7 @@ layout = html.Div([
         html.Br(),
         html.Br(),
         html.Br(),
-        html.H2("categoryorder"),
+        html.H2("category Order"),
         html.Div(
             dcc.Graph(figure=fig9),
             className="border"

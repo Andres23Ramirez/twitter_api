@@ -17,7 +17,19 @@ layout = html.Div([
     dbc.Container([ 
         html.Br(),
         html.Br(),     
-        html.H1('Analizer'), 
+        html.H1('Analizer', className='text-center font-weight-bold'),
+        html.Br(),
+        html.Br(),
+        html.H3("Follow the instructions: "), 
+        html.Div(children=[
+                html.Iframe( "allowfullscreen"
+                    ,className="embed-responsive-item" 
+                    ,src="assets/img/video.mp4" 
+                )]
+            ,className="embed-responsive embed-responsive-21by9"
+        ),
+        html.Br(),
+        html.Br(),
         html.P("Enter the City and a word's list separated by comma (Max: 5 words) what you want analize"),   
         dbc.Form(
             [
