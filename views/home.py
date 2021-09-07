@@ -2,10 +2,17 @@ import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+from pkg_resources import yield_lines
 from views import commonmodules
 
 from app import app
-team_mates = ['Valentina Parra', 'Rodian Andrés Oliveros', 'Edwin Romero', 'David Mauricio Arquez', 'Felipe Bonnet', 'Oscar Andrés Zapata', 'Rodrigo Andrés Ramírez Aguirre' ]
+team_mates = {'Valentina Parra': "https://www.linkedin.com/in/vparrag", 
+              'Rodian Andrés Oliveros': 'https://www.linkedin.com/in/rodianoliveros/', 
+              'Edwin Romero': "", 
+              'David Mauricio Arquez': "", 
+              'Felipe Bonnet': "https://www.linkedin.com/in/felipe-bonnet", 
+              'Oscar Andrés Zapata': "", 
+              'Rodrigo Andrés Ramírez Aguirre': "https://www.linkedin.com/in/rodrigo-andres-ramirez-aguirre-b1aa20126/" }
 
 layout = html.Div([
     commonmodules.get_header(),
@@ -62,7 +69,7 @@ layout = html.Div([
                         html.Div(
                             className="team_mates",
                             children=[
-                                html.Ul(id='team_mates', children=[html.Li(i) for i in team_mates])
+                                html.Ul(id='team_mates', children=[html.Li(children=[html.H3(key), html.A("Linkedin", href=value)]) for key, value in team_mates.items()])
                             ],
                     ),
                     ], className='col-sm-6'),
