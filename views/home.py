@@ -6,9 +6,9 @@ from pkg_resources import yield_lines
 from views import commonmodules
 
 from app import app
-team_mates = {'Valentina Parra': "https://www.linkedin.com/in/vparrag", 
+team_mates = {'Valentina Parra Garces': "https://www.linkedin.com/in/vparrag", 
               'Rodian Andrés Oliveros': 'https://www.linkedin.com/in/rodianoliveros/', 
-              'Edwin Romero': "", 
+              'Edwin Romero Cuero': "", 
               'David Mauricio Arquez': "", 
               'Felipe Bonnet': "https://www.linkedin.com/in/felipe-bonnet", 
               'Oscar Andrés Zapata': "", 
@@ -79,7 +79,7 @@ layout = html.Div([
                                     {
                                         "key": "1",
                                         "src": "/assets/img/valentina.png",
-                                        "header": "Valentina Parra",
+                                        "header": "Valentina Parra Garces",
                                         "caption": "Data Scientist and Machine Learning Engineer",
                                         "imgClassName": "image_new_class"
                                     },
@@ -99,8 +99,8 @@ layout = html.Div([
                                     },
                                     {
                                         "key": "4",
-                                        "src": "/assets/img/not_photo.png",
-                                        "header": "Edwin Romero",
+                                        "src": "/assets/img/edwin.jpg",
+                                        "header": "Edwin Romero Cuero",
                                         "caption": "Data Scientist and Machine Learning Engineer",
                                         "imgClassName": "image_new_class"
                                     },
